@@ -1,5 +1,5 @@
 import { useSelector, useDispatch } from 'react-redux'; // connect : 클래스 컴포넌트 근처에서 클래스 컴포넌트를 스토어에 연결
-import { counterActions } from '../store/index';
+import { counterActions } from '../store/counter';
 
 import classes from './Counter.module.css';
 
