@@ -1,11 +1,11 @@
 import { createSlice, configureStore } from "@reduxjs/toolkit";
 
 
-const initialState = {counter:0, showCounter: true}
+const initialCounterState = {counter:0, showCounter: true}
 
 const counterSlice = createSlice({
     name: 'counter',
-    initialState,
+    initialState: initialCounterState,
     reducers:{
         increment(state){
             state.counter++;
@@ -20,44 +20,29 @@ const counterSlice = createSlice({
             state.showCounter = !state.showCounter;
         }
     }
-})
+});
 
-// const counterReducer = (state = initialState, action) => {
-//     if(action.type === 'increment'){
-//         return {
-//             counter: state.counter +1,
-//             showCounter: state.showCounter,
-//         }
-//     }
+const initialAuthState = {
+    isAuthenticated: false,
+};
 
-//     if(action.type === 'increase'){
-//         return{
-//             counter: state.counter + action.amount,
-//             showCounter: state.showCounter,
-//         }
-//     }
-
-
-//     if(action.type === 'decrement'){
-//         return{
-//             counter: state.counter-1,
-//             showCounter: state.showCounter,
-//         }
-//     }
-
-//     if(action.type === 'toggle'){
-//         return {
-//             showCounter: !state.showCounter,
-//             counter: state.counter,
-//         }
-//     }
-
-//     return state;
-// }
+const authSlice = createSlice({
+    name: 'authentication',
+    initialState: initialAuthState,
+    reducers: {
+        login(state){
+            state.isAuthenticated = true;
+        },
+        logout(state){
+            state.isAuthenticated = false;
+        },
+    }
+});
 
 const store = configureStore({
     reducer: {
         counter: counterSlice.reducer,
+        auth: authSlice.reducer,
     },
 }); 
 // configureStore은 createStore처럼 store를 만든다. 다른점은 여러 개의 리듀서를 하나의 리듀서로 쉽게 합칠 수 있다.
@@ -66,6 +51,7 @@ const store = configureStore({
 // counterSlice.actions를 사용하면 액션 식별자 값을 얻을 수 있다.
 // counterSlice.actions에는 작성된 함수의 리듀서 영역에 있는 key의 이름이 들어있어 해당 메서드에 접근 할 수 있다.
 export const counterActions = counterSlice.actions;
+export const authActions = authSlice.actions;
 
 export default store;
 
